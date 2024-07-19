@@ -10,7 +10,7 @@ Route::view('dashboard', 'dashboard')
     ->name('dashboard');
 
 
-Route::get('mensajes', [MensajeController::class, 'index'])
+Route::get('messages', [MensajeController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('mensajes');
 

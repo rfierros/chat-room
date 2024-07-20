@@ -5,13 +5,13 @@ use Livewire\Volt\Component;
 
 new class extends Component {
     #[Validate('required|string|max:255')]
-    public string $message = ''; 
- 
+    public string $message = '';
+
     public function store(): void
     {
         $validated = $this->validate();
  
-        auth()->user()->chirps()->create($validated);
+        auth()->user()->mensajes()->create($validated);
  
         $this->message = '';
     }

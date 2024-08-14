@@ -38,6 +38,15 @@ new class extends Component
  
         $this->getMensajes();
     }     
+ 
+    public function delete(Mensaje $mensaje): void
+    {
+        $this->authorize('delete', $mensaje);
+ 
+        $mensaje->delete();
+ 
+        $this->getMensajes();
+    }     
 }; ?>
  
 <div class="bg-white shadow-sm rounded-lg divide-y"> 
@@ -68,6 +77,9 @@ new class extends Component
                                 <x-dropdown-link wire:click="edit({{ $mensaje->id }})">
                                     {{ __('Edit') }}
                                 </x-dropdown-link>
+                                <x-dropdown-link wire:click="delete({{ $mensaje->id }})" wire:confirm="Are you sure you want to delete this message?"> 
+                                    {{ __('Delete') }}
+                                </x-dropdown-link> 
                             </x-slot>
                         </x-dropdown>
                     @endif                    

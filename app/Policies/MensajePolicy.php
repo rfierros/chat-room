@@ -47,6 +47,7 @@ class MensajePolicy
     public function delete(User $user, Mensaje $mensaje): bool
     {
         //
+        return $this->update($user, $mensaje);
     }
 
     /**

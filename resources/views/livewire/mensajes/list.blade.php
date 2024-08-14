@@ -7,16 +7,40 @@ use Livewire\Volt\Component;
 new class extends Component
 {
     public Collection $mensajes; 
+
+    public ?Mensaje $editing = null; 
  
     public function mount(): void
+    {
+        $this->getMensajes();
+    } 
+
+    #[On('mensaje-created')]
+    public function getMensajes(): void
     {
         $this->mensajes = Mensaje::with('user')
             ->latest()
             ->get();
-    } 
+    }     
+
+    public function edit(Mensaje $mensaje): void
+    {
+        $this->editing = $mensaje;
+ 
+        $this->getMensajes();
+    }    
+ 
+    #[On('mensaje-edit-canceled')]
+    #[On('mensaje-updated')] 
+    public function disableEditing(): void
+    {
+        $this->editing = null;
+ 
+        $this->getMensajes();
+    }     
 }; ?>
  
-<div class="mt-6 bg-white shadow-sm rounded-lg divide-y"> 
+<div class="bg-white shadow-sm rounded-lg divide-y"> 
     @foreach ($mensajes as $mensaje)
         <div class="p-6 flex space-x-2" wire:key="{{ $mensaje->id }}">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600 -scale-x-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -27,9 +51,32 @@ new class extends Component
                     <div>
                         <span class="text-gray-800">{{ $mensaje->user->name }}</span>
                         <small class="ml-2 text-sm text-gray-600">{{ $mensaje->created_at->format('j M Y, g:i a') }}</small>
+                        @unless ($mensaje->created_at->eq($mensaje->updated_at))
+                            <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
+                        @endunless
                     </div>
+                    @if ($mensaje->user->is(auth()->user()))
+                        <x-dropdown>
+                            <x-slot name="trigger">
+                                <button>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+                                    </svg>
+                                </button>
+                            </x-slot>
+                            <x-slot name="content">
+                                <x-dropdown-link wire:click="edit({{ $mensaje->id }})">
+                                    {{ __('Edit') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
+                    @endif                    
                 </div>
-                <p class="mt-4 text-lg text-gray-900">{{ $mensaje->message }}</p>
+                @if ($mensaje->is($editing)) 
+                    <livewire:mensajes.edit :mensaje="$mensaje" :key="$mensaje->id" />
+                @else
+                    <p class="mt-4 text-lg text-gray-900">{{ $mensaje->message }}</p>
+                @endif 
             </div>
         </div>
     @endforeach 

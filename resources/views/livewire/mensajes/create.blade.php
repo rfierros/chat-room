@@ -17,7 +17,7 @@ new class extends Component {
     }
 }; ?>
 
-<div>
+<div class="mt-6">
     <form wire:submit="store"> 
         <textarea
             wire:model="message"

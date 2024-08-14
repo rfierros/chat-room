@@ -1,0 +1,29 @@
+[33mcommit 1a9fe3c226d109c9f6aa189bb638ed2fba5dfc20[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Rene F <rene.fierros@gmail.com>
+Date:   Sat Jul 20 23:55:20 2024 +0200
+
+    Saving & listing messages
+
+[33mcommit 3f35c420bd89a999e7e9a690f0e07d832c06b782[m
+Author: Rene F <rene.fierros@gmail.com>
+Date:   Fri Jul 19 15:40:58 2024 +0200
+
+    actualizacion modelo mensajes y relacion con users
+
+[33mcommit 00fc273096d6d397ea81673c3008f0a10b206d0e[m
+Author: Rene F <rene.fierros@gmail.com>
+Date:   Thu Jul 18 19:08:35 2024 +0200
+
+    Creacion de la vista para introducir mensajes
+
+[33mcommit 6ee65bc41cf6cdc176e2c9ba22458b47f6d29117[m
+Author: Rene F <rene.fierros@gmail.com>
+Date:   Thu Jul 18 13:45:46 2024 +0200
+
+    auth included
+
+[33mcommit ba60a61cea65cfa440f1cce3ff9024578da64d9b[m
+Author: Rene F <rene.fierros@gmail.com>
+Date:   Wed Jul 17 23:23:41 2024 +0200
+
+    Basic template
